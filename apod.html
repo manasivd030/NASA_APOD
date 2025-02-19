@@ -1,45 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags for character encoding and responsive viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NASA APOD</title>
-    <style>
-        .loading {
-            opacity: 0.5;
-        }
-        .error {
-            color: red;
-            display: none;
-        }
-        .img-apod {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <!-- Main heading -->
     <h2>Astronomy Picture of the day</h2>
+    <!-- Date picker input -->
     <input type="date" id="date" onchange="getDate();">
+    <!-- Error message container -->
     <div id="error" class="error"></div>
+    <!-- Image title -->
     <h3 class="img-title" id="title"></h3>
+    <!-- Date display -->
     <em class="date" id="pic_date"></em>
+    <!-- NASA APOD image -->
     <img src="" alt="" id="apod_pic" class="img-apod">
+    <!-- Image description/caption -->
     <p class="caption" id="caption"></p>
 
     <script type="text/javascript">
-        // Declaration of constants
+        // Declaration of constants for API configuration
         const method = "GET";
         const key = "KxusfycWULc1zvXGdmZHQwXBepaisiYWmI0fYdNq";
         const baseUrl = "https://api.nasa.gov/planetary/apod?api_key=" + key;
 
-        // Load today's picture on page load
+        // Load today's picture when page loads
         window.addEventListener('load', () => {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('date').value = today;
             getDate();
         });
 
+        // Fetch image data for selected date
         function getDate() {
             const date = document.getElementById("date").value;
             setLoading(true);
@@ -49,16 +47,19 @@
                 .finally(() => setLoading(false));
         }
 
+        // Set loading state for the image
         function setLoading(isLoading) {
             document.getElementById("apod_pic").style.opacity = isLoading ? 0.5 : 1;
         }
 
+        // Handle and display error messages
         function handleError(error) {
             const errorDiv = document.getElementById("error");
             errorDiv.style.display = "block";
             errorDiv.textContent = "Error loading image: " + error.message;
         }
 
+        // Update the DOM with NASA APOD data
         function update(data) {
             document.getElementById("error").style.display = "none";
             document.getElementById("pic_date").innerHTML = data.date;
@@ -67,6 +68,7 @@
             document.getElementById("caption").innerHTML = data.explanation;
         }
 
+        // Send HTTP request to NASA API
         function sendHttpRequest(method, url) {
             return new Promise((resolve, reject) => {
                 const req = new XMLHttpRequest();
