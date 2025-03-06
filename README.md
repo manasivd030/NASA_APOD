@@ -21,7 +21,7 @@ Note: Do not share the API key as per their instruction along with account_Id
 ##### Web Service Rate Limits
 Hourly Limit: 1,000 requests per hour
 
-Note: ##### DEMO_KEY is the default key if you do not want to generate your own API key then use the below default key as provided by NASA.
+Note: DEMO_KEY is the default key if you do not want to generate your own API key then use the below default key as provided by NASA.
 ##### DEMO_KEY Rate Limits - 
 Hourly Limit: 30 requests per IP address per hour
 Daily Limit: 50 requests per IP address per day
